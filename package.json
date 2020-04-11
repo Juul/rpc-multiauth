@@ -11,5 +11,14 @@
     "store": "^1.3.17",
     "xhr": "^2.1.0"
   },
+  "author": {
+    "name": "Marc Juul",
+    "email": "npm@juul.io",
+    "url": "https://github.com/juul"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/juul/rpc-multiauth.git"
+  },
   "license": "AGPL-1.0"
 }

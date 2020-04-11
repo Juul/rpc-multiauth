@@ -52,6 +52,15 @@ var rpcServer = rpc(auth(
   });
 ```
 
+You can also set the option:
+
+```
+  userDataAsFirstArgument: true
+```
+
+which will cause the first argument for each rpc function to be the logged in user (if any).
+
+
 When auth fails for async functions, if the last argument is a function, it is assumed to be a callback with the first argument being an optional error and is called with an "Unauthorized" error.
 
 Note: Currently there is no real error reporting when auth fails for a sync function. The server will spit out a console.error and null will be returned. We need to solve [this issue](https://github.com/Juul/rpc-multistream/issues/2) so we can throw exceptions that propagate to the client.
@@ -316,3 +325,10 @@ npm start
 ```
 
 Then open `http://localhost:3000/` in your browser.
+
+# License and copyright
+
+* Copyright 2020 renegade.bio
+* Copyright 2015-2018 BioBricks Foundation
+
+* License: AGPLv3 (see `LICENSE` file for full license text)
