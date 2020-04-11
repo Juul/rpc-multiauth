@@ -265,8 +265,15 @@ function authRPC(opts, procs, hookOrNamespace) {
         delete rpcMethods._rpcMultiAuthData;
     }
 
-    rpcMethods.login = function(loginData, cb) {
-
+  // arguments expected: loginData, cb
+  rpcMethods.login = function() {
+        // Ignore all but the last two arguments.
+        // We do this to ignore potential prepended arguments
+        // caused by rpc-multistream's .setStaticInArgs()
+        const args = Array.prototype.slice.call(arguments, arguments.length - 2);
+        var loginData = args[0];
+        var cb = args[1];
+    
         opts.login(loginData, function(err, id, userData) {
             if(err) return cb("Login failed: " + err);
             var token = createToken(id, opts.secret, userData, {
@@ -279,13 +286,22 @@ function authRPC(opts, procs, hookOrNamespace) {
         });
     };
 
-    rpcMethods.logout = function(cb) {
+    // arguments expected: cb
+    rpcMethods.logout = function() {
+        const args = Array.prototype.slice.call(arguments, arguments.length - 1);
+        var cb = args[0];
+        
         forgetUser();
         cb();
     };
 
     // authenticate if client already has token
-    rpcMethods.authenticate = function(token, cb) {
+    // arguments expected: token, cb
+    rpcMethods.authenticate = function() {
+        const args = Array.prototype.slice.call(arguments, arguments.length - 2);
+        var token = args[0];
+        var cb = args[1];
+    
         verifyToken(token, opts.secret, {expiration: opts.tokenExpiration}, function(err, decoded) {
             if(err) return cb(err);
 
