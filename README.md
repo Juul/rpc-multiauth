@@ -329,6 +329,7 @@ Then open `http://localhost:3000/` in your browser.
 # License and copyright
 
 * Copyright 2020 renegade.bio
-* Copyright 2015-2018 BioBricks Foundation
+* Copyright 2016-2018 BioBricks Foundation
+* Copyright 2015-2018 Marc Juul <npm@juul.io>
 
 * License: AGPLv3 (see `LICENSE` file for full license text)
