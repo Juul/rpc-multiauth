@@ -267,14 +267,11 @@ function authRPC(opts, procs, hookOrNamespace) {
 
   // arguments expected: loginData, cb
   rpcMethods.login = function() {
-        // Ignore all but the last two arguments.
-        // We do this to ignore potential prepended arguments
-        // caused by rpc-multistream's .setStaticInArgs()
-        const args = Array.prototype.slice.call(arguments, arguments.length - 2);
-        var loginData = args[0];
-        var cb = args[1];
+        var args = Array.prototype.slice.call(arguments);
+        var cb = args[args.length - 1];
+        args = args.slice(0, -1);
     
-        opts.login(loginData, function(err, id, userData) {
+        const loginFunc = function(err, id, userData) {
             if(err) return cb("Login failed: " + err);
             var token = createToken(id, opts.secret, userData, {
                 expiration: opts.tokenExpiration
@@ -283,7 +280,10 @@ function authRPC(opts, procs, hookOrNamespace) {
             rememberUser(token);
 
             cb(null, token, userData);
-        });
+        };
+  
+        args.push(loginFunc);
+        opts.login.apply(this, args);
     };
 
     // arguments expected: cb

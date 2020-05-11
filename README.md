@@ -326,6 +326,10 @@ npm start
 
 Then open `http://localhost:3000/` in your browser.
 
+# ToDo
+
+* Move used defined .check auth function to _before_ authentication is attempted
+
 # License and copyright
 
 * Copyright 2020 renegade.bio
